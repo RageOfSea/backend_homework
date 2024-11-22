@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ car.make }} {{ car.model }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ car.make }} {{ car.model }} ({{ car.year }})</h1>
+        <p>{{ car.description }}</p>
+        <p>Владелец: {{ car.owner.username }}</p>
+        <p>Дата создания: {{ car.created_at }}</p>
+        <p>Последнее обновление: {{ car.updated_at }}</p>
+
+        <h2>Комментарии</h2>
+        <ul>
+            {% for comment in comments %}
+                <li>
+                    <strong>{{ comment.author.username }}:</strong> {{ comment.content }} 
+                    <span>({{ comment.created_at }})</span>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h3>Добавить комментарий</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit">Отправить</button>
+        </form>
+
+        <a class="back-link" href="{% url 'car_list' %}">Назад</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список автомобилей</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Список автомобилей</h1>
+        <a class="button" href="{% url 'car_create' %}">Добавить новый автомобиль</a>
+        <ul>
+            {% for car in cars %}
+                <li>
+                    <a href="{% url 'car_detail' car.id %}">{{ car.make }} {{ car.model }} ({{ car.year }})</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
